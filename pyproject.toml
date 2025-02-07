@@ -1,0 +1,15 @@
+[project]
+name = "nonebot_plugin_dbimg"
+version = "0.1.0"
+description = "Nonebot2呆站（derpibooru.org）搜图插件"
+readme = "README.md"
+requires-python = ">=3.9, <4.0"
+
+[tool.nonebot]
+adapters = [
+    { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" },
+    { name = "QQ", module_name = "nonebot.adapters.qq" }
+]
+plugins = []
+plugin_dirs = ["nonebot_plugin_dbimg"]
+builtin_plugins = []

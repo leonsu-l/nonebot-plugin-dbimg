@@ -1,0 +1,10 @@
+
+# 填入你的Derpibooru API key (https://derpibooru.org/registrations/edit)，留空则使用默认配置
+key: ''
+
+# 是否启用内置tags
+# 一行一个tag，格式为- <tag>
+tags:
+  enabled: true
+  list:
+    - safe
