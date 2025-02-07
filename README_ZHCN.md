@@ -1,26 +1,25 @@
-# <div style="text-align: center;">NoneBot2 Philomena Image Search Plugin</div>
+# <div style="text-align: center;">NoneBot2适配Philomena图片站搜索插件</div>
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/leonsu-l/nonebot_plugin_dbimg/ci.yml?branch=main)](https://github.com/leonsu-l/nonebot_plugin_dbimg/actions)
 [![License](https://img.shields.io/github/license/leonsu-l/nonebot_plugin_dbimg)](https://github.com/leonsu-l/nonebot_plugin_dbimg/blob/main/LICENSE)
 [![Issues](https://img.shields.io/github/issues/leonsu-l/nonebot_plugin_dbimg)](https://github.com/leonsu-l/nonebot_plugin_dbimg/issues)
 [![Stars](https://img.shields.io/github/stars/leonsu-l/nonebot_plugin_dbimg)](https://github.com/leonsu-l/nonebot_plugin_dbimg/stargazers)
-[![简体中文](https://img.shields.io/badge/README-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-red)](https://github.com/leonsu-l/nonebot_plugin_dbimg/blob/main/README_ZHCN.md)
 ---
 
-## Introduction
+## 介绍
 _WIP_
 
-## Installation
+## 安装
 _WIP_
 
-## Usage
+## 用法
 _WIP_
 
-## Contributing
+## 贡献
 _WIP_
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/leonsu-l/nonebot_plugin_dbimg/blob/main/LICENSE) file for details.
+## 开源许可
+该项目采用 MIT 许可证。请参阅 [LICENSE](https://github.com/leonsu-l/nonebot_plugin_dbimg/blob/main/LICENSE) 以了解更多。
 
-## Credits
+## 鸣谢
 _WIP_
