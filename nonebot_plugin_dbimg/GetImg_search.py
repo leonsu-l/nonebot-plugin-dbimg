@@ -39,7 +39,7 @@ async def handle_input_tags(plaintext):
     if not tags:
         logger.info("处理后无tags")
     else:
-        # logger.info(f"用户输入tags处理完毕: {tags}")
+        logger.info(f"用户输入tags: {tags}")
         str_tags = "%2C".join(tags)
 
     return str_tags
@@ -52,7 +52,6 @@ async def handle_internal_tags():
     if not tags:
         logger.info("未启用/添加内置tags")
     else:
-        logger.info(f"内置tags: {tags}")
         str_tags = "%2C".join(tags)
 
     return str_tags
@@ -112,11 +111,11 @@ async def handle_Get_Image(bot: Bot, event: MessageEvent):
 
     img_url = await image_select(json_content=json_content)
     
+    at = MessageSegment.at(event.user_id)
     if img_url:
-        at = MessageSegment.at(event.user_id)
         image = MessageSegment.image(img_url)
         img_id = img_url.split('/')[-2]
-        img_source = f"https://derpibooru.org/images/{img_id}"
+        img_source = f"id: {img_id}"
         await bot.send(event, at + image + img_source)
     else:
         await Get_Image.finish("没有找到相关图片")
