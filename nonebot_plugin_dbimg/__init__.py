@@ -1,7 +1,6 @@
 import os
 
-from .GetImg_search import Get_Image
-# from .GetImg_reverse import Reverse_Image
+from .GetImg import Get_Image
 from .Config import Path
 
 from nonebot.plugin import PluginMetadata
