@@ -39,4 +39,8 @@ jobs:
       env:
         PACKAGE_UPDATE_API: ${{ secrets.package_update_api }}
       run: |
-        wget --spider --server-response "$PACKAGE_UPDATE_API" 2>&1 | grep "HTTP/1.[01] [2]00 OK" || { echo "Error: URL did not return a 200 status code"; exit 1; }
+        status_code=$(curl -s -o /dev/null -w "%{http_code}" "$PACKAGE_UPDATE_API")
+        if [ "$status_code" -ne 200 ]; then
+          echo "Error: Received HTTP status code $status_code"
+          exit 1
+        fi
