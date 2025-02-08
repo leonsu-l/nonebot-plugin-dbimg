@@ -29,7 +29,6 @@ async def load_tags():
         return config['tags']['list']
     return []
 
-
 #NU1L_L
 localizationZh = {
     'No_Proper_Picture':"没能找到合适的图片awa",

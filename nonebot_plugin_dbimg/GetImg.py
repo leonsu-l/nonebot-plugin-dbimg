@@ -44,7 +44,7 @@ async def handle_get_image(bot: Bot, event: MessageEvent, image_method: getImage
 	random_image = image_method.random_select_image(image_list)
 	try:
 		image = MessageSegment.image(random_image.url)
-		await bot_send(bot, event, image + random_image.extra_page)
+		await bot_send(bot, event, image + "id" + random_image.id)
 	except:
 		await bot_send(bot, event, localization["Internal_Error"])
 		return
@@ -56,7 +56,7 @@ from ._classMethod_.parse import *
 
 @Get_Image.handle()
 async def _main_(bot: Bot, event: MessageEvent):
-	api_key =await load_key()
+	api_key = await load_key()
 	image_method = getImage_derpibooru(api_key)
 	parse_method = NU1L_L_Parse()
 	await handle_get_image(bot, event, image_method, parse_method)
