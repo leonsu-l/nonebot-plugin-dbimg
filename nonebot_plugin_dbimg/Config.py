@@ -39,6 +39,8 @@ localizationZh = {
     "Internal_Error":"内部错误"
 }
 precommand="safe,"
-
+config={
+    "fail_times":10
+}
 localization=localizationZh
 
