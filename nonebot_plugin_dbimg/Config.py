@@ -10,13 +10,13 @@ class Config(BaseModel):
     internal_tags: bool = True
     internal_tags_list: list = []
 '''
-async def load_config():
+def load_config():
     with open(Path + 'config.yml', 'r', encoding='utf8') as file:
         config = file.read()
     return yaml.safe_load(config)
 
-async def load_key():
-    config = await load_config()
+def load_key():
+    config =load_config()
     return config['key']
 
 # 定义一个异步函数，用于加载标签
@@ -28,7 +28,6 @@ async def load_tags():
     if config['tags']['enabled']:
         return config['tags']['list']
     return []
-
 
 #NU1L_L
 localizationZh = {
@@ -42,3 +41,4 @@ localizationZh = {
 precommand="safe,"
 
 localization=localizationZh
+

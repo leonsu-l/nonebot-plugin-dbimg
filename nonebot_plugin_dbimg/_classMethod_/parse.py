@@ -31,7 +31,6 @@ class NU1L_L_Parse(parse):
 		build_stack = []
 		context = ""
 		for token in token_list:
-			print(token)
 			if token == ';':
 				if context:
 					current_process[context] = context

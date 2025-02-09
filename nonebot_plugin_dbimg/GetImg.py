@@ -10,18 +10,50 @@ from .Config import precommand
 from ._classMethod_._classBase_.get_image import *
 from ._classMethod_._classBase_.parse import *
 
-driver = get_driver()
-driver.config.command_start = {".", "。"}
-Get_Image = on_command(localization["command"], priority=10, block=True)
+import unicodedata
+import re
+
+import asyncio
+
+
+def _init_user_():
+	pass
+
+
+def _init_system_():
+	global driver
+	global Get_Image
+	global image_method
+	global parse_method
+
+	driver = get_driver()
+	driver.config.command_start = {".", "。"}
+	Get_Image = on_command(localization["command"], priority=10, block=True)
+
+def chinese_punctuation_to_english(s):
+	punctuation_map = {
+		'。': '.',
+		'，': ',',
+		'；': ';',
+	}
+	return ''.join(punctuation_map.get(c, c) for c in s)
+
+
+def preprecess(data) -> str:
+	data = chinese_punctuation_to_english(data)
+	print(data)
+	return data
 
 
 def get_purl_cmd(str_) -> str:
-	return str_.strip()[len(localization["command"]) + 1:].strip()
+	str_ = preprecess(str_)
+	cmd = str_.strip()[len(localization["command"]) + 1:].strip()
+	return cmd
 
 
-async def bot_send(bot: Bot, event: MessageEvent, message):
+def bot_send(bot: Bot, event: MessageEvent, message):
 	at = MessageSegment.at(event.user_id)
-	await bot.send(event, at + message)
+	return bot.send(event, at + message)
 
 
 async def handle_get_image(bot: Bot, event: MessageEvent, image_method: getImage, filter_parse: parse):
@@ -36,27 +68,41 @@ async def handle_get_image(bot: Bot, event: MessageEvent, image_method: getImage
 	if input_tags is None:
 		await bot_send(bot, event, localization["Input_Error"])
 		return
-	image_list = image_method.get_image_list(input_tags)
-
+	try:
+		image_list = await image_method.get_image_list(input_tags)
+	except Exception("bad response") as e:
+		await bot_send(bot, event, localization["Internal_Error"])
+		logger.error(f"{e}")
+		return
+	except Exception("Request timeout") as e:
+		await bot_send(bot, event, localization["Internal_Error"])
+		logger.error(f"{e}")
+		return
 	if image_list is None:
 		await bot_send(bot, event, localization["No_Proper_Picture"])
 		return
 	random_image = image_method.random_select_image(image_list)
 	try:
 		image = MessageSegment.image(random_image.url)
-		await bot_send(bot, event, image + random_image.extra_page)
+		await bot_send(bot, event,image + "id" + random_image.id)
 	except:
 		await bot_send(bot, event, localization["Internal_Error"])
 		return
 
 
+_init_system_()
+
 from ._classMethod_.getImage_derpibooru import *
 from ._classMethod_.parse import *
+
+api_key = load_key()
+image_method = getImage_derpibooru(api_key)
+parse_method = NU1L_L_Parse()
 
 
 @Get_Image.handle()
 async def _main_(bot: Bot, event: MessageEvent):
-	api_key =await load_key()
-	image_method = getImage_derpibooru(api_key)
-	parse_method = NU1L_L_Parse()
-	await handle_get_image(bot, event, image_method, parse_method)
+	if asyncio.get_event_loop().is_running():
+		asyncio.create_task(handle_get_image(bot, event, image_method, parse_method))
+	else:
+		asyncio.run(handle_get_image(bot, event, image_method, parse_method))
