@@ -1,0 +1,4 @@
+PyYAML~=6.0.2
+pydantic~=2.10.6
+exceptiongroup~=1.2.2
+aiohttp~=3.11.12

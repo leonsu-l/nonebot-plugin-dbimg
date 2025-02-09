@@ -6,7 +6,7 @@ class Image:
         self.id = id
 class getImage(ABC):
     @abstractmethod
-    def get_image_list(self,filter_list)->dict|None:
+    async def get_image_list(self,filter_list)->dict|None:
         pass
 
     @abstractmethod
