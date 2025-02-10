@@ -6,7 +6,7 @@ from nonebot import get_driver
 from .Config import load_key, load_tags
 from .Config import localization
 from .Config import precommand
-
+from .Config import config
 from ._classMethod_._classBase_.get_image import *
 from ._classMethod_._classBase_.parse import *
 
@@ -83,9 +83,24 @@ async def handle_get_image(bot: Bot, event: MessageEvent, image_method: getImage
 		return
 	random_image = image_method.random_select_image(image_list)
 	try:
-		image = MessageSegment.image(random_image.url)
-		await bot_send(bot, event,image + "id" + random_image.id)
-	except:
+		print(random_image.url)
+		if config["fail_times"]:
+			fail_times=config["fail_times"]
+		else:
+			fail_times=1
+		image=MessageSegment.image(random_image.url)
+		while fail_times > 0:
+			image = MessageSegment.image(random_image.url)
+			if not image:
+				fail_times -= 1
+			else:
+				break
+		if fail_times > 0:
+			await bot_send(bot, event,image + "id" + random_image.id)
+		else:
+			await bot_send(bot, event,"图片下载失败,id"+random_image.url)
+	except Exception as e:
+		logger.error(e)
 		await bot_send(bot, event, localization["Internal_Error"])
 		return
 

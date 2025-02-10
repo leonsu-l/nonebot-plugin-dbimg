@@ -16,10 +16,6 @@ class getImage_derpibooru(getImage):
 		}
 		self._http = aiohttp.ClientSession(headers=headers)
 
-	async def _fetch(self, session, url):
-		async with session.get(url) as response:
-			return await response.text()
-
 	def _convert_filter_list_to_string_pre(self, filter_list, pre="") -> str:
 		return_buffer = ""
 		for key, value in filter_list.items():
@@ -40,17 +36,18 @@ class getImage_derpibooru(getImage):
 		self._init_http_event_loop()
 		try:
 			async with self._http as session:
-				data = await self._fetch(session, url)
-				response_json = json.loads(data)
-				if response_json.get("total") == 0:
-					return None
-				return response_json
+				async with session.get(url) as response:
+					if response.status != 200:
+						raise Exception(response.status)
+					data = await response.json()
+					response_json = data
+					if response_json["total"] == 0:
+						return None
+					return response_json
 		except aiohttp.ClientResponseError as e:
 			raise Exception("bad response")
 		except aiohttp.ServerTimeoutError as e:
 			raise Exception("Request timeout")
-		except Exception as e:
-			return None
 
 	def random_select_image(self, image_list) -> Image | None:
 		if image_list['total'] == 0:
