@@ -75,6 +75,9 @@ async def handle_get_image(bot: Bot, event: MessageEvent, image_method: getImage
 		await bot_send(bot, event, localization["No_Proper_Picture"])
 		return
 	random_image = image_method.random_select_image(image_list)
+	if random_image is None:
+		await bot_send(bot, event, localization["No_Proper_Picture"])
+		return
 	try:
 		print("debug",random_image.image_url)
 		if config["fail_times"]:

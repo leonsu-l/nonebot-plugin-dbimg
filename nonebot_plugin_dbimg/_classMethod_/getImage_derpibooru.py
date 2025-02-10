@@ -37,14 +37,14 @@ class getImage_derpibooru(getImage):
 
 	# 将平台返回的字符串转化为插件内部的数据格式
 	@staticmethod
-	def _convert_to_picture_list(picture_list: dict) -> list[Image]:
+	def _convert_to_picture_list(picture_list: dict) -> list[Image]|None:
 		# 检测数据是否合法,不合法的话就报错
 		father_key_list = ["total", "images", "interactions"]
 		for key in father_key_list:
 			if key not in picture_list:
 				raise Exception("bad list key")
 		if picture_list["total"] == 0:
-			return []
+			return None
 		image_list = []
 		# 检查对象石里面是否有如下元素
 		image_key_list = ["tags", "representations", "id", "name", "uploader", "name"]
