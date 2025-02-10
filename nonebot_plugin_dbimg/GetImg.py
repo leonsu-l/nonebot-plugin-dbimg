@@ -10,14 +10,7 @@ from .Config import config
 from ._classMethod_._classBase_.get_image import *
 from ._classMethod_._classBase_.parse import *
 
-import unicodedata
-import re
-
 import asyncio
-
-
-def _init_user_():
-	pass
 
 
 def _init_system_():
@@ -83,27 +76,26 @@ async def handle_get_image(bot: Bot, event: MessageEvent, image_method: getImage
 		return
 	random_image = image_method.random_select_image(image_list)
 	try:
-		print(random_image.url)
+		print("debug",random_image.image_url)
 		if config["fail_times"]:
 			fail_times=config["fail_times"]
 		else:
 			fail_times=1
-		image=MessageSegment.image(random_image.url)
+		image = MessageSegment.image(random_image.image_url)
 		while fail_times > 0:
-			image = MessageSegment.image(random_image.url)
+			image = MessageSegment.image(random_image.image_url)
 			if not image:
 				fail_times -= 1
 			else:
 				break
 		if fail_times > 0:
-			await bot_send(bot, event,image + "id" + random_image.id)
+			await bot_send(bot, event, image + "id" +str(random_image.image_id))
 		else:
-			await bot_send(bot, event,"图片下载失败,id"+random_image.url)
+			await bot_send(bot, event, "图片下载失败,id" + str(random_image.image_id))
 	except Exception as e:
 		logger.error(e)
 		await bot_send(bot, event, localization["Internal_Error"])
 		return
-
 
 _init_system_()
 

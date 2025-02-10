@@ -10,7 +10,8 @@ class NU1L_L_Parse(parse):
 	def __init__(self):
 		super().__init__()
 
-	def parse_token(self, data) -> list:
+	# 将语句切分成token
+	def _parse_token(self, data) -> list:
 		buffer = ""
 		return_buffer = []
 		for i in range(0, len(data)):
@@ -25,7 +26,9 @@ class NU1L_L_Parse(parse):
 			return_buffer.append(buffer)
 		return return_buffer
 
-	def build_object(self, token_list: list) -> dict:
+	# 创建对象
+	@staticmethod
+	def _build_object(token_list: list) -> dict:
 		return_object = {}
 		current_process = return_object
 		build_stack = []
@@ -61,11 +64,6 @@ class NU1L_L_Parse(parse):
 		return return_object
 
 	def parse(self, data) -> dict:
-		token_list = self.parse_token(data)
-		return_object = self.build_object(token_list)
+		token_list = self._parse_token(data)
+		return_object = self._build_object(token_list)
 		return return_object
-
-
-if __name__ == '__main__':
-	parse = NU1L_L_Parse()
-	print(parse.parse('a:dddd;b:dddd,ff:ff,f,ffr'))
