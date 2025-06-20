@@ -6,6 +6,9 @@
 [![Stars](https://img.shields.io/github/stars/leonsu-l/nonebot_plugin_dbimg)](https://github.com/leonsu-l/nonebot_plugin_dbimg/stargazers)
 [![简体中文](https://img.shields.io/badge/README-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-red)](https://github.com/leonsu-l/nonebot_plugin_dbimg/blob/main/README_ZHCN.md)
 ---
+# The refactored new plugin
+[nonebot_plugin_dbimg_new](https://github.com/leonsu-l/nonebot_plugin_dbimg_new)
+(Fully refactored)
 
 ## Introduction
 _WIP_
