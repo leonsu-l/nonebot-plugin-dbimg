@@ -5,6 +5,9 @@
 [![Issues](https://img.shields.io/github/issues/leonsu-l/nonebot_plugin_dbimg)](https://github.com/leonsu-l/nonebot_plugin_dbimg/issues)
 [![Stars](https://img.shields.io/github/stars/leonsu-l/nonebot_plugin_dbimg)](https://github.com/leonsu-l/nonebot_plugin_dbimg/stargazers)
 ---
+# 重构版新插件
+[nonebot_plugin_dbimg_new](https://github.com/leonsu-l/nonebot_plugin_dbimg_new)
+（完全重构版）
 
 ## 介绍
 _WIP_
